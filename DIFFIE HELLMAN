@@ -1,0 +1,36 @@
+
+  def mod_exp(base, exponent, modulus):
+    result = 1
+    base = base % modulus
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+        exponent = exponent // 2
+        base = (base * base) % modulus
+    return result
+
+
+def diffie_hellman(prime, generator, private_key):
+    public_key = mod_exp(generator, private_key, prime)
+    return public_key
+
+
+if __name__ == "__main__":
+    
+    prime = 27 
+    generator = 5  
+
+    
+    private_key_alice = 6
+    private_key_bob = 17
+
+    
+    public_key_alice = diffie_hellman(prime, generator, private_key_alice)
+    public_key_bob = diffie_hellman(prime, generator, private_key_bob)
+
+    
+    shared_secret_alice = mod_exp(public_key_bob, private_key_alice, prime)
+    shared_secret_bob = mod_exp(public_key_alice, private_key_bob, prime)
+
+    print("Shared Secret for Alice:", shared_secret_alice)
+    print("Shared Secret for Bob:", shared_secret_bob)

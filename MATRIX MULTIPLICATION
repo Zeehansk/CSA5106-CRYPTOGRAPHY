@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+#define ROW_A 3
+#define COL_A 2
+#define ROW_B 2
+#define COL_B 3
+
+
+void matrixMultiplication(int matrixA[ROW_A][COL_A], int matrixB[ROW_B][COL_B], int result[ROW_A][COL_B]) {
+    int i, j, k;
+
+    for (i = 0; i < ROW_A; i++) {
+        for (j = 0; j < COL_B; j++) {
+            result[i][j] = 0;
+            for (k = 0; k < COL_A; k++) {
+                result[i][j] += matrixA[i][k] * matrixB[k][j];
+            }
+        }
+    }
+}
+
+
+void displayMatrix(int matrix[ROW_A][COL_B]) {
+    int i, j;
+    for (i = 0; i < ROW_A; i++) {
+        for (j = 0; j < COL_B; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int matrixA[ROW_A][COL_A] = {
+        {1, 2},
+        {3, 4},
+        {5, 6}
+    };
+    int matrixB[ROW_B][COL_B] = {
+        {7, 8, 9},
+        {10, 11, 12}
+    };
+    int result[ROW_A][COL_B];
+
+    if (COL_A != ROW_B) {
+        printf("Matrix multiplication is not possible due to invalid dimensions.\n");
+        return 1;
+    }
+
+    matrixMultiplication(matrixA, matrixB, result);
+
+    printf("Matrix A:\n");
+    displayMatrix(matrixA);
+
+    printf("Matrix B:\n");
+    displayMatrix(matrixB);
+
+    printf("Result of matrix multiplication (Matrix A * Matrix B):\n");
+    displayMatrix(result);
+
+    return 0;
+}
